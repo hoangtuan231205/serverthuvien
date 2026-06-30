@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # 1. Cơ sở dữ liệu MySQL
+  db_thu_vien:
+    image: mysql:8.0
+    container_name: mysql_server
+    restart: always
+    environment:
+      MYSQL_DATABASE: library_db       # Tên Database của bạn (sửa lại cho đúng)
+      MYSQL_USER: root             # Tài khoản kết nối (sửa lại cho đúng)
+      MYSQL_PASSWORD: # Mật khẩu kết nối (sửa lại cho đúng)
+      MYSQL_ROOT_PASSWORD:
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # 2. Máy chủ Java Spring Boot
+  backend_thu_vien:
+    build: .  # Build từ file Dockerfile nằm cùng thư mục
+    container_name: springboot_backend_server
+    restart: always
+    ports:
+      - "8000:8080" # Ánh xạ cổng 8000 ngoài mặt tiền vào cổng 8080 của Spring Boot
+    depends_on:
+      - db_thu_vien # Chờ MySQL chạy lên trước rồi mới chạy Backend
+
+volumes:
+  db_data: # Giúp lưu dữ liệu MySQL không bị mất khi tắt máy
