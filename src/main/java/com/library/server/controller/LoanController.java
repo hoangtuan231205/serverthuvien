@@ -30,7 +30,7 @@ public class LoanController {
     public ResponseEntity<String> createLoan(@RequestBody @Valid LoanRequestDTO request) {
         try {
             loanService.createNewLoan(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Tạo phiếu mượn thành công!");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Sửa dữ liệu!");
         } catch (Exception e) {
             // Nếu có lỗi (Sai ID, sách hết...), ném thông báo lỗi về Frontend
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
