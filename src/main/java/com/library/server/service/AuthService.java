@@ -50,7 +50,7 @@ public class AuthService {
         }
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Email đã được sử dụng. Vui lòng chọn email khác!");
+            throw new RuntimeException("Email đã được sử dụng. Vui lòng sử dụng email khác!");
         }
 
         if (request.getPhone() != null && !request.getPhone().trim().isEmpty()) {
